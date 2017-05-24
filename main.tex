@@ -1,0 +1,1586 @@
+
+%% bare_jrnl.tex
+%% V1.3
+%% 2007/01/11
+%% by Michael Shell
+%% see http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.7 or later) with an IEEE journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex
+%%*************************************************************************
+
+% Note that the a4paper option is mainly intended so that authors in
+% countries using A4 can easily print to A4 and see how their papers will
+% look in print - the typesetting of the document will not typically be
+% affected with changes in paper size (but the bottom and side margins will).
+% Use the testflow package mentioned above to verify correct handling of
+% both paper sizes by the user's LaTeX system.
+%
+% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
+% should be used if it is desired that the figures are to be displayed in
+% draft mode.
+%
+\documentclass[compsoc]{IEEEtran}
+\usepackage{blindtext}
+\usepackage{graphicx}
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+
+\usepackage[utf8]{inputenc}
+
+\newcommand{\cmt}[1]{}\cmt{}
+
+\usepackage{bbold}
+\usepackage{titlesec}
+\usepackage[english]{babel}
+\titlelabel{\thetitle.\quad}
+\setcounter{secnumdepth}{3}
+\usepackage{amsmath}
+
+\usepackage{color,soul}
+\soulregister\cite7
+\soulregister\subsubsection7
+\usepackage[]{algorithm2e}
+
+\usepackage{graphicx}
+\usepackage{ifthen}
+\let\oldcite=\cite
+\renewcommand\cite[1]{\ifthenelse{\equal{#1}{NEEDED}}{[citation~needed]}{\oldcite{#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Blindtext Toggles %%%%%%%%%%%%%%%%%%%%%
+\usepackage{etoolbox}
+
+\newtoggle{blindtext}
+\toggletrue{blindtext}
+
+\iftoggle{blindtext}{
+    \definecolor{mygray}{gray}{0.7}
+    \newcommand{\gblindtext}[1]{
+        \color{mygray}
+        \blindtext[#1]
+        \color{black}
+    }
+}{ 
+    \newcommand{\gblindtext}[1]{}
+}
+
+\newtoggle{blindtext2}
+\toggletrue{blindtext2}
+
+\iftoggle{blindtext2}{
+    \definecolor{mygray2}{gray}{0.8}
+    \newcommand{\ggblindtext}[1]{
+        \color{mygray2}
+        \blindtext[#1]
+        \color{black}
+    }
+}{ 
+    \newcommand{\ggblindtext}[1]{}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% *** CITATION PACKAGES ***
+%
+%\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
+% not currently provide for hyperlinked citations.
+% The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at: 
+% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found as epslatex.ps or
+% epslatex.pdf at: http://www.ctan.org/tex-archive/info/
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage[cmex10]{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics. If using
+% it, be sure to load this package with the cmex10 option to ensure that
+% only type 1 fonts will utilized at all point sizes. Without this option,
+% it is possible that some math symbols, particularly those within
+% footnotes, will be rendered in bitmap form which will result in a
+% document that can not be IEEE Xplore compliant!
+%
+% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+%\usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
+% There is also a support site at:
+% http://algorithms.berlios.de/index.html
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/required/tools/
+
+
+%\usepackage{mdwmath}
+%\usepackage{mdwtab}
+% Also highly recommended is Mark Wooding's extremely powerful MDW tools,
+% especially mdwmath.sty and mdwtab.sty which are used to format equations
+% and tables, respectively. The MDWtools set is already installed on most
+% LaTeX systems. The lastest version and documentation is available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/mdwtools/
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+%\usepackage{eqparbox}
+% Also of notable interest is Scott Pakin's eqparbox package for creating
+% (automatically sized) equal width boxes - aka "natural width parboxes".
+% Available at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/eqparbox/
+
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\usepackage[tight,footnotesize]{subfigure}
+% subfigure.sty was written by Steven Douglas Cochran. This package makes it
+% easy to put subfigures in your figures. e.g., "Figure 1a and 1b". For IEEE
+% work, it is a good idea to load it with the tight package option to reduce
+% the amount of white space around the subfigures. subfigure.sty is already
+% installed on most LaTeX systems. The latest version and documentation can
+% be obtained at:
+% http://www.ctan.org/tex-archive/obsolete/macros/latex/contrib/subfigure/
+% subfigure.sty has been superceeded by subfig.sty.
+
+
+
+%\usepackage[caption=false]{caption}
+%\usepackage[font=footnotesize]{subfig}
+% subfig.sty, also written by Steven Douglas Cochran, is the modern
+% replacement for subfigure.sty. However, subfig.sty requires and
+% automatically loads Axel Sommerfeldt's caption.sty which will override
+% IEEEtran.cls handling of captions and this will result in nonIEEE style
+% figure/table captions. To prevent this problem, be sure and preload
+% caption.sty with its "caption=false" package option. This is will preserve
+% IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
+% (recommended due to many improvements over 1.2) of subfig.sty supports
+% the caption=false option directly:
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%
+% The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
+% The latest version and documentation of caption.sty can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/caption/
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure. The latest version and documentation can be found at:
+% http://www.ctan.org/tex-archive/macros/latex/base/
+
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
+% Documentation is contained in the stfloats.sty comments as well as in the
+% presfull.pdf file. Do not use the stfloats baselinefloat ability as IEEE
+% does not allow \baselineskip to stretch. Authors submitting work to the
+% IEEE should note that IEEE rarely uses double column equations and
+% that authors should try to avoid such use. Do not be tempted to use the
+% cuted.sty or midfloat.sty packages (also by Sigitas Tolusis) as IEEE does
+% not format its papers in such ways.
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley and Jeff Goldberg.
+% This package may be useful when used in conjunction with IEEEtran.cls'
+% captionsoff option. Some IEEE journals/societies require that submissions
+% have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.3.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% For subfigure.sty:
+% \let\MYorigsubfigure\subfigure
+% \renewcommand{\subfigure}[2][\relax]{\MYorigsubfigure[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat/subfig command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/misc/
+% Read the url.sty source comments for usage information. Basically,
+% \url{my_url_here}.
+
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+%
+% paper title
+% can use linebreaks \\ within to get better formatting as desired
+\title{A Survey of Facial Micro-Expression Detection Techniques for Body Language Analysis}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+
+%\author{Mark~Havens,~\IEEEmembership{Member,~IEEE,}
+%        and~Ishfaq~Ahmad,~\IEEEmembership{Fellow,~IEEE}}% <-this % stops a space
+        
+\author{Mark~Havens,~Ishfaq~Ahmad}%
+       
+        
+%\thanks{M. Shell is with the Department
+%of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
+%GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
+%\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
+%\thanks{Manuscript received April 19, 2005; revised January 11, 2007.}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{Journal of XXXXXXXXXXXXXX,~Vol.~X, No.~X, June~2017}%
+{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2007 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+
+\begin{abstract}
+%\boldmath
+\gblindtext{1}
+
+\end{abstract}
+% IEEEtran.cls defaults to using nonbold math in the Abstract.
+% This preserves the distinction between vectors and scalars. However,
+% if the journal you are submitting to favors bold math in the abstract,
+% then you can use LaTeX's standard command \boldmath at the very start
+% of the abstract to achieve this. Many IEEE journals frown on math
+% in the abstract anyway.
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+micro-expressions, body language, facial expression recognition, affective computing, video processing.
+\end{IEEEkeywords}
+
+
+
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+
+\gblindtext{2}
+
+\subsection{Background}
+
+[Revision Needed] 
+
+Facial expressions, in general, has been extensively researched in computer vision \cite{pantic2000automatic}. While are a number of challenges in the area of body language detection, one of the areas that has received relativity little attention has been related to micro-expressions. Micro-expressions are very brief facial expressions, discovered by Ekman in the 1960s, lasting for only a fraction of a second, which occur involuntarily whenever a person attempts to conceal their true feelings \cite{pfister2011recognising}. Normal, easily detectable facial expressions last for 0.5 to 4 seconds \cite{matsumoto2011evidence}. It has been observed that a small percentage of the population do not produce micro-expressions, such as persons exhibiting symptoms of psychopathy. However, these facial expressions have been proven to be universal in all human cultures.
+
+\subsection{Motivation}
+
+[Revision Needed] 
+
+For most of our existence, mankind has communicated with each other intuitively, rarely taking a moment to realize the mechanics behind our communication. It is self evident from recent research over the last few decades that body language plays a majority role when communicating with others of our species. The desire to quantify and develop algorithms for unraveling this language is unquestionable. When fully realized, it could add an entirely new dimension of human interaction with technology. Additionally, the dynamic of unraveling hidden emotions of the face would lend us the ability to obtain insight that would not otherwise be available.
+
+\subsection{Early Research}
+Ekman has contributed significantly over the years to the study of deception detection, and was the first to discover microexpressions as a universal phenomenon \cite{NEEDED}. Ekman also developed the Facial Action Coding System (FACS), which is notation system for recording every possible movement of the face, including motions significant to emotions \cite{pfister2011recognising}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% Applications %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Applications}
+
+\gblindtext{2}
+
+\subsubsection*{SPOT Automation}
+[add citations]
+
+In 2006, the Transportation Security Administration began training agents to recognize body language in order to detect malicious intent with he hope of reducing the likelihood of repeated terrorism and other risks \cite{NEEDED}. The SPOT program is costly in terms of manpower, and the effectiveness of the program remains unproven \cite{NEEDED}. However, if an electronic method of implementation of this program were viable, it would dramatically reduce costs while making and scalability of the program viable.
+
+\subsubsection*{Digital Assistants}
+[add citations]
+
+Ever since we as humans have begun interacting with computers, we have become accustomed to formatting our requests in very specific, logical way. Digital assistants such as Alexa have a limited scope in which they can respond, since they are limited strictly to voice commands without the benefit of context, vocal tone, or body language. Body language, and facial expressions in particular, is an absent channel of communication when interacting with these systems. However, once such a channel of communication becomes available, these digital assistants could dramatically increase their responsiveness and enhance the emulation of their human like behavior. Such a device equipped with facial feedback, could detect the user's likes and dislikes automatically, and quickly tune to each user without the need for constant vocal feedback and training.
+
+\subsubsection*{VR Telepresence}
+[add citations]
+
+While video conferencing and telepresence technologies are commonplace today, the future is in implementing virtual reality telepresence where two or more remote users can interact with each other in real time, just as they were in the same room. In order to convincingly achieve this, channels of communication beyond voice, including body language and facial effects must be flawlessly reproduced.
+
+\subsubsection*{Marketing}
+[add citations]
+
+Given the proliferation of video cameras on computers and mobile devices, there is an opportunity to capture facial affect data from app users and websites for aggregation and use for any number of purposes. Split testing, for example, usually requires a click or some other signaling mechanism in order to be effective. Split testing may not be viable in cases where no clicks are needed. Developers of apps and websites would be able to determine through facial effects collected from user cameras, if content was liked or disliked by the end user. If such facial information were constantly available to advertisers, this would cause a paradigm shift in on-line targeting of advertisement.
+
+\subsubsection*{Security}
+[add citations]
+
+In general, security cameras require constant monitoring to be most effective. When security cameras aren't monitored, they're often used to research in incident after the fact. Automation could dramatically reduce monitoring time, allowing a single operator the ability to monitor a much larger number of camera feeds. When cameras are not actively monitored, automation could dramatically reduce review time, even in a busy feed, by providing persons of interest based on body language deductions and context that would provide as malicious signaling indicators.  
+
+\subsubsection*{Mediation}
+[add citations]
+
+Courts often use mediation as a method of alternative dispute resolution, by having parties hire a trained mediator. Disputes may include anything from interpersonal conflicts to public policy. Analyzing body language would help mediators understand the people they mediate, to help gain valuable insight that would lead to having both sides come to an agreement more quickly. 
+
+\subsubsection*{Negotiation}
+[add citations]
+
+Negotiation incorporates a number of tactics and often takes place between parties on behalf of an organization in order to come to agreement that would benefit one or both parties. Similar to that of mediation, analyzing body language would also help a negotiator gain valuable insight in order to help select appropriate strategies and tactics that would favor a more positive outcome.
+
+\subsubsection*{Interrogation}
+[add citations]
+
+Current interrogation techniques used by the police and military require training and experience \cite{NEEDED}. While traditional lie detector tests require consent by police, no consent would be needed when using completely passive techniques.
+
+\subsubsection*{Employment}
+[add citations]
+
+One challenge that employers face is vetting and selecting the most qualified person for the position they need filled. Because accomplishments on resumes are often exaggerated or sometimes complete fabrications, the best selection may require a rigorous interview process, which may include testing and references. A technology that can accurately distinguish between honest responses and dishonest responses during the hiring process, could be a useful tool that would reduce overall labor costs.  
+
+\subsubsection*{Jury Selection}
+[add citations]
+
+During jury selection, attorneys are not only expected to make their selections based strictly on their verbal responses, but also the nonverbal responses \cite{NEEDED}. Selection decisions may be intuitive or require training \cite{NEEDED}. Attorneys could come to depend on a computational selection process determined by analyzing body language of the potential juror.   
+
+\subsubsection*{Computer Human Interaction}
+[add citations]
+
+Since body language plays such large role in human communication, incorporating it into the computer user experience would have interesting possibilities. A device able to respond to your emotional state would be able to influence a users mood in positive ways. It could also reduce misunderstandings that are typical of such interactions, for example, a device could capable of detecting sarcasm through vocal tone and body language analysis in the same way humans can, and then craft a more appropriate response.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% Impact %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Impact}
+[add citations]
+
+While many research areas of computer science and psychology have advanced significantly as independent fields, there remains a need for more interdisciplinary work between the two. Humans have evolved to incorporate emotion into their body language in order to supplement verbal communication \cite{NEEDED}. Some experts believe nonverbal communication can account for over 60 percent of all communication between parties \cite{NEEDED}. This nonverbal channel of communication can be impaired unless visually observed by another human being. Without this channel of communication, there can be a higher risk of miscommunication and misunderstanding.
+
+According to Ekman, most research in the psychology domain, where the vast majority of testing as been done on college students, people are not able to distinguish a lie based on observation of demeanor. In nearly every study, accuracy is close to that of chance \cite{ekman2004emotional}.
+
+Deception detection is an emerging area of research in Computer Science \cite{NEEDED}. While polygraph testing requires consent, processing of video input would not. Normally, with polygraph testings, responses to questions are measured which allow a tester to deduce truth and lie \cite{owayjan2012design}. Similar deception detection results are possible by observing body language, but this typically requires a highly trained human observers \cite{NEEDED}. Also, because these observational methods are less known, and trained observers are less accessible due to high cost and scarcity, they go underutilized in areas where they might be extremely useful, such as interrogation, mediation, negotiation, security, employment, and jury selection.   
+
+Arguments can be made against such technologies on the basis of privacy concerns. For example, data could be collected over time by camera which may be used to detect marital discord, interpersonal attraction, or cheating on a spouse. Such a technology would be sure to be controversial among those that would normally be dependant on discretion of such matters.
+
+\section{Video Analysis in Psychology}
+[add citations]
+
+One of the fundamental problems when assessing video footage is the time it takes to view large quantities of content. When viewing still video with no changes, this can be trivial. However, when there is large quantities of footage of someone speaking to consider, extracting insight from all the video can be very time consuming, and especially costly when using a highly trained observer.
+
+\subsection{Emotions}
+
+When asking questions about the evolution of humanity and the development of human culture, there has been a great deal of attention focused on the brain, consciousness, and its basis on human behavior after millions of years of development while interacting with each other socially. It is reasonable to conclude that the evolutionary development of the human brain can, at least in part, be attributed to an increase in demand of social interaction with others \cite{dunbar1998social}. While facial expressions, to a certain extent, may have always been at risk of losing its benefit during earlier social interactions in prehistory, it must have been evolutionary relevant to human survival as a collective group \cite{schmidt2001human}. In much the same way as verbal communication has been theorized as creating an increased efficiency in the collective survival of prehistoric tribal units, conveying emotion, as an ancient, and perhaps even more efficient means of communication with others, is a reasonable possibility \cite{dunbar1998social}.
+
+\subsection{Detectable Emotions}
+
+ It has been shown that exhibiting most emotions through the face is involuntary and universal, regardless of cultural context \cite{ekman1979facial}, and therefore is predictable enough to enable accurate interpretation by either intuitive, procedural, algorithmic, or electronic means. While most people are unable to detect deception in others beyond that of chance, it has been shown that with proper training and aptitude, it can be learned. \cite{ekman1999few} Similar methods could also be applied to deception detection through electronic means.
+
+Past research has established that different neural pathways are used to actuate facial muscles voluntarily and involuntarily \cite{miehlke1973surgery}\cite{myers1976comparative}\cite{tschiassny1953lx}. While this alone is an insufficient indication that voluntary and involuntary facial expressions would differ in appearance, there has been notable psychology research based on observation. Ekman hypothesized that since there are many different voluntary and involuntary expressions, and each vary in their neural substrates, there are observable differences between similar expressions meant to convey emotions intentionally and unintentionally. \cite{ekman1984expression}
+
+\subsubsection*{Spontaneous, Involuntary, Felt Expressions}
+
+Felt expressions include all of the exhibited emotions that a person genuinely experiences. A smile, for example, would indicate a positive emotion. This would include any positive emotion derived by any of the senses, including hearing, vision, taste, smell, and touch. These emotions include: amusement, delight, contentment, satisfaction, bliss, relief (such as from discomfort or pain), and enjoyment of the company of another.
+
+Provided that an expression is genuine, it can often be distinguished from its more disingenuous counterpart by comparing variations in intensity and timing of certain specific features of the face. For example, all spontaneous smiles have common elements that actuate the zygomatic major and the orbicularis oculi muscles in the face. The zygomatic major causes the corners of the lips to be pulled up towards the cheekbones. The Orbicularis oculi, pars lateralis is responsible for raising the cheek that produces crows-feet wrinkles near the edge of the eye. The Orbicularis oculi, pars medialis creates a tightened upper and lower eye lid, while raising the lower eye lid and creating wrinkles or bulges in the skin directly below it. \cite{ekman1984expression}
+
+
+\subsubsection*{Deliberate, Voluntary, False Expressions}
+
+False expressions are deliberate. They're purpose is usually to allow someone to deceive those who are observing them into thinking they are feeling something they are not. Although, not exclusive to deception, any voluntary expression determined to approximate an emotion would exhibit similar features. \cite{ekman1984expression}
+
+When comparing emotions such as smiles, studies have shown that there are distinct differences between spontaneous and posed expressions. Ekman found that deliberate smiles were usually asymmetric compared to spontaneous smiles. In addition, the deliberate, asymmetric smiles were more often stronger on the left side of the face when subjects were right handed. This lead to thinking that any hemispheric specialization in the right hemisphere of the brain, which controls the faces left side, is not responsible for emotion, but is in fact responsible for managing and modulating its behavior instead. Therefore, it is believed that for any controlled, modulated behavior, whether posed or spontaneous, voluntary or involuntary, genuinely felt or false with the intention to deceive, there will be a greater likelihood for asymmetry than with its corresponding spontaneous expression. \cite{ekman1984expression}
+
+Given that there are observable differences between deliberate and spontaneous emotions, predictable facial movements can be identified as distinguishing artifacts. Deliberate, false smiles, for example, exhibit subtle facial muscle movements which differentiate them from genuine, spontaneous smiles. These distinguishing movements are often accompanied by movement of the resorious, buccinator, and caninus, which produce a tilted alteration to the lips, which relate more to negative emotions. This includes alterations to the zygomatic major and orbicularis oculi, which would not be present if the smile indicated a generally positive feeling. \cite{ekman1982felt}
+
+\subsubsection*{Referential Expressions}
+
+A referential expression is any expression that is not a presently felt by the person exhibiting the expression, but instead, makes a expressive reference to a feeling without the intention of misleading the person they are engaged with. The person who encounters this false expression may misinterpret the expression, however. But the person usually understands that the exhibited emotion is not presently being felt. This might be indicated as a smile intended to convey politely concealed misery, for example, or what is otherwise known in Ekman's research as a miserable smile \cite{ekman1984expression}. This smile would be exhibited to acknowledge being miserable, and is not confused with happiness. This can be deliberate in broadcasting a mixed signal, as a way to convey to another person that they will not demonstrate negative feelings, while simultaneously acknowledging those negative feelings efficiently. \cite{ekman1984expression}
+
+\subsection{Macro-Expressions and Micro-Expressions}
+
+[Establish differences with focus on hidden emotions]
+
+[citations needed]
+
+Macro-expressions refer to what is normally observable in the human face. This is sometimes referred to as pronounced expressions \cite{NEEDED} when distinguished from micro-expressions. This is not to be confused with posed expressions, which are willful simulations of expressions.
+
+\section{Related Technologies}
+
+\gblindtext{2}
+
+
+\subsection{Video Conferencing}
+
+[Eye gaze correction with avatars]
+
+\gblindtext{2}
+
+\subsection{3D Animation}
+
+[Push for animated faces that doesn't cause cognitive dissonance]
+
+\gblindtext{2}
+
+\subsubsection*{Face2Face}
+Face2Face uses a state of the art method for real-time face capture \cite{thies2016face2face}. While this work wasn't intended for emotion detection research, it could be applied to real time processing of facial affects. Directional information could be quickly collection in order to normalize its use with previously incompatible data-sets.
+
+\subsubsection*{Photometric Stereo 3D Tracking}
+[Revision Needed]
+
+We attempt to address the 3D head rotation problem by suggesting a tracking method that makes use of Photometric Stereo \cite{kemelmacher2011face}. By recreating a 3D model of a face and rigging it to synchronize using other methods \cite{suwajanakorn2014total} so that it responds to the facial affects in the original image, we will be able to more easily normalize the face for affect detection and analysis using any algorithm that is not tolerant to motion.
+
+[add citatons]
+
+Excessive movement is known to be problem that complicates employing Eulerian video magnification for facial affect detection. This is because magnification of undesirable motion is unavoidable using previous techniques. A system that includes a Photometic Stero 3D tracker would elimiate this complication and allow for magnification of the rendered 3D image in the same manner.
+
+
+\subsection{Virtual Reality}
+
+[Existing VR technology for reading emotions]
+
+\gblindtext{2}
+
+\subsection{Augmented Reality}
+
+[Existing AR classification technology for sex, age, and emotional state]
+
+\gblindtext{2}
+
+\section{Affect Models and Feature Classification}
+
+[Revision Needed]
+
+Affect recognition systems aim at recognizing the appearance of facial actions or the emotions conveyed by the actions. The former set of systems usually rely on the Facial Action Coding System (FACS) \cite{NEEDED}\cmt{[1038]}.
+
+FACS consists of facial Action Units (AUs), which are codes that describe certain facial configurations (e.g. AU 12 is lip corner puller). The production of a facial action has a temporal evolution, which plays an important role in interpreting emotional displays \cite{NEEDED}\cmt{[1004]}, \cite{NEEDED}\cmt{[1005]}.
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{FACS}
+\caption{Facial Action Coding System (FACS)}
+\label{fig_sim}
+\end{figure}
+
+[add citations]
+
+The temporal evolution of an expression is typically modelled with four temporal segments \cite{NEEDED}\cmt{[1038]}: neutral, onset, apex and offset. Neutral is the expressionless phase with no signs of muscular activity. Onset denotes the period during which muscular contraction begins and increases in intensity. Apex is a plateau where the intensity usually reaches a stable level; whereas offset is the phase of muscular action relaxation. Although the order of these phases is usually neutral-onset-apex-offset, alternative combinations such as multiple-apex actions are also possible \cite{NEEDED}\cmt{[1025]}.
+
+The systems that recognise emotions consider basic or non-basic emotions. Basic emotions refer to the affect model developed by Ekman and his colleagues, who argued that the production and interpretation of certain expressions are hard-wired in our brain and are recognised universally (e.g. \cite{NEEDED}\cmt{[1037]}).
+
+The emotions conveyed by these expressions are modelled with six classes: happiness, sadness, surprise, fear, anger and disgust. Basic emotions are believed to be limited in their ability to represent the broad range of everyday emotions \cite{NEEDED}\cmt{[1048]}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{havens1}
+\caption{Six universal facial expressions.}
+\label{fig_sim}
+\end{figure}
+
+\subsection{Facial Action Coding System (FACS)}
+
+[Typical FACS classification methods]
+
+In order to make emotion extraction of the face more useful, it must be stored and indexed. To accomplish this, an affect recognition system must be in place. The Facial Action Coding System (FACS) can be used as an objective system for representing facial movements based on 57 combinations of facial components \cite{wang2014micro}. It is a mature encoding system, and has become commonly used for electronic encoding of facial expressions. Applications such as the open source HapFACS has been developed to reproduce facial expressions based on the FACS encoding system.
+
+\subsection{Whole Feature Classification}
+
+[Typical emotion classification methods]
+
+\gblindtext{2}
+
+\section{Datasets}
+[add citations]
+
+While there remains a great deal of preliminary groundwork to conduct in order to advance this research area, one of the most important is to establish a sufficiently large and diverse spatial-temporal dataset. The importance of having such a sufficient dataset is self-evident, however, there are a number of scope issues that have yet to be fully explored. For example, it can be assumed that a dataset with a very large temporal resolution would be more beneficial than one with a low resolution. Also, some existing datasets have elected to include frequency ranges beyond normal visual range, such as infrared. 
+
+There is a fundamental absence of masked expressions in current datasets. These are false facial expression, deliberately made to conceal an emotional response. However, subtle differences can be detected in a masked expression which would expose the underline emotion. Capturing masked expressions as a dataset could be a tremendous leap forward in video processed lie detection.
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{surprise-smic}
+\caption{Example of surprise classification in SMIC database.}
+\label{fig_sim}
+\end{figure}
+
+
+\subsection{Dataset Generation}
+[add citations]
+
+Some groundwork for algorithmic detection of normal facial gestures has already been done which can be easily applied to micro-expression detection. The principle challenge is related to the brief duration of micro-expressions in comparison with regular facial expressions. Several existing datasets with very high temporal resolutions of 100 to 200 frames per second are available with the hope of overcoming these challenges. And some groundwork for detection of micro-expressions using 25 frame per second video has been done as well, using an intra-frame morphing technique to increase accuracy when comparing low frame rate video with higher frame rate datasets.
+
+Producing a highly diverse micro-expression dataset will be a challenge, as it has historically been difficult to produce sufficient emotional states in lab conditions. For example, the CASEME ][ dataset has a relatively low number of "sadness" responses compared to other emotional states \cite{yan2014casme}.  Also, there appears to be a number of less primitive emotional states in current datasets, which were documented by Ekman’s later expanded research, including emotions such as pride, contempt, relief, shame, anxiety, and guilt.
+
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{9-states}
+\caption{Computer generated 9 state classification dataset.}
+\label{fig_sim}
+\end{figure}
+
+
+\subsection{Posed Datasets}
+
+[add citations]
+
+Posed data sets have been in use for quite some time, and are also the easiest to produce. Posed datasets can be especially useful in Action Unit (AU) training, since such training is localized to a specific facial feature. It may also be useful for being able to distinguish between posed and natural expressions, in order to detect disingenuous emotional states. Some datasets include both posed and spontaneous data. 
+
+\subsubsection{Posed Macro-Expression Datasets}
+
+\gblindtext{2}
+
+\subsubsection*{JAFFE Database}
+
+The Japanese Female Facial Expression (JAFFE) Database provides 213 images of 10 different female Japanese models. Six basic, posed facial expression classifiers plus one neutral are provided. \cite{lyons1998japanese}
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{JAFFE-sample}
+\caption{Sample images from JAFFE database.}
+\label{fig_sim}
+\end{figure}
+
+
+
+\subsubsection*{Cohn-Kanade Database}
+
+\gblindtext{2}
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{ck-sample}
+\caption{Sample images from CK+ database.}
+\label{fig_sim}
+\end{figure}
+
+
+
+\subsubsection*{Radbound FACS Database (RaFD)}
+
+\gblindtext{2}
+
+\subsubsection*{Facial Expression Research Group Database (FERG)}
+
+\gblindtext{2}
+
+\subsubsection{Posed Micro-Expression Datasets}
+
+\gblindtext{2}
+
+\subsection{Spontaneous Datasets}
+
+\gblindtext{2}
+
+\subsubsection{Spontaneous Macro-Expression Datasets}
+
+\gblindtext{2}
+
+\subsubsection*{DISFA}
+
+\gblindtext{2}
+
+\subsubsection*{Indian Spontaneous Expression Database (ISED)}
+
+\gblindtext{2}
+
+\subsubsection{Spontaneous Micro-Expression Datasets}
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{spont-databases}
+\caption{Spontaneous micro-expression databases.}
+\label{fig_sim}
+\end{figure}
+
+
+
+\subsubsection*{SMIC-VIS}
+
+The SMIC dataset consists of 164 micro-expressions extracted from 16 subjects, and was recorded using a 100fps camera. Additional, 71 clips from 8 subjects were recorded at slower speeds with near infrared cameras as a supplement to the high frame rate data\cite{li2013spontaneous}.
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{smic-vis}
+\caption{Sample images SMIC-VIS-E database.}
+\label{fig_sim}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{smic-hs-e}
+\caption{Sample images SMIC-VIS-E database.}
+\label{fig_sim}
+\end{figure}
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{smic-nir-e-sample}
+\caption{Sample images SMIC-NIR-E database.}
+\label{fig_sim}
+\end{figure}
+
+
+\subsubsection*{CASEME II}
+
+The CASEME II dataset has established a baseline for its high resolution spatio-temporal data at with resolutions of 200-fps and 255 spontaneous facial micro-expressions \cite{yan2014casme}. While it remains unclear if a high resolution of this magnitude is necessary for successful future work, a standard resolution of 30 fps or lower is clearly insufficient for recording macro-expressions. The present reasonable costs of high quality equipment capable of 200 fps makes data collection far more obtainable today than in previous years.
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{casemeii-sample}
+\caption{Sample images from CASEME II database.}
+\label{fig_sim}
+\end{figure}
+
+
+\section{Face Registration}
+
+\gblindtext{2}
+
+\subsection*{Face Detection}
+
+Provided that a face is able to stay in frame and is relatively stationary, face detection is mostly a solved problem \cite{NEEDED}, although there are still obstacles that need to be overcome. Registering facial affects of a moving face continues to remain a challenge in current research \cite{NEEDED}. Face detection, as an initial stage, requires an automatic method of reliably detecting and tracking the face in the source video \cite{polikovsky2009facial}. At later stages, it may be necessary to apply directional data in order to synchronize source facial effects with the use of various datasets. Facial direction would therefore need to be deduced at this stage \cite{polikovsky2009facial}.  
+
+\subsection{Whole Face Registration}
+
+\gblindtext{2}
+
+\subsubsection{Rigid Registration}
+
+[add citations]
+
+Rigid registration is generally performed by detecting facial landmarks and using their location to compute a global transformation (e.g. Euclidean, affine) that maps an input face to a prototypical face. Many systems use the two eye points or the eyes and nose or mouth \cite{NEEDED}\cmt{[1056]}, \cite{NEEDED}\cmt{[1076]}.
+
+\subsubsection*{KLT Facial Tracking}
+
+While detecting micro-expressions on a moving face has been a relatively unsolved problem, one simple approach \cite{li2017towards} uses the Kanade-Lucas-Tomasi algorithm \cite{tomasi1991detection} to track facial features within a blocked area by registering three fixed points on the face that are most likely to remain fixed during affect registration. While tracking should be computationally low cost, there is a distinct drawback is that it doesn't address the 3D head rotation problem. 
+
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{KLTalgorithm}
+\caption{Face is divided into blocks with coordinates of three tracked facial feature points.}
+\label{fig_sim}
+\end{figure}
+
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{suwajanakorn1}
+\caption{This markerless Photometric Stereo method \protect\cite{suwajanakorn2014total} enables facial pose estimation of the matching 3D rendered face while potentially solving the 3D head rotation problem.}
+\label{fig_sim}
+\end{figure}
+
+
+
+\begin{algorithm}[!t]
+    \KwData{$P_0=P_{ref}$ initialize pose from average shape template;}
+    \KwResult{3D pose $P$}
+    \While{$until$ $convergence$}{
+        estimate lighting $L_i$ of input $I$ using average shape template;\\
+        render $v_{avg}$ in pose $P_i$ and input lighting $L_i$;\\
+        run 2D optical flow between $A_{P_i}^{L_i}$ and $I$;\\
+        generate 3D-to-2D correspondences from $v_{avg}$ to $I$ through 2D flow;\\
+        solve PnP using RANSAC on subset of correspondences:;\\
+        solve PnP on all inlirs to compute new estimate of pose $P_{i+1}$;\\
+        }
+        \caption{Out of plane pose estimation in a single frame \protect\cite{suwajanakorn2014total}.}
+    \end{algorithm}
+
+\subsection{Non-Ridged Registration}
+[add citations]
+
+While rigid approaches register the face as a whole entity, non-rigid approaches enable registration locally and can suppress registration errors due to facial activity. For instance, an expressive face (e.g. smiling face) can be warped into a neutral face. Techniques such as AAM are used for non-rigid registration by performing piece-wise affine transformations around each landmark \cite{NEEDED}\cmt{[1084]}. 
+
+Alternatively, generic techniques such as SIFT-flow \cite{NEEDED}[1078] can also be used.
+
+The so-called avatar image registration technique \cite{NEEDED}\cmt{[1175]} adapts SIFT-flow for facial sequence registration. Avatar image registration addresses identity bias explicitly by retaining expression-related texture variations and discarding identity-related variations.
+
+\subsubsection*{Photometric Stereo}
+
+\gblindtext{2}
+
+\subsection{Parts Registration}
+
+A number of appearance representations process faces in terms of parts (e.g. eyes, mouth), and may require the spatial consistency of each part to be ensured explicitly. The number, size and location of the parts to be registered may vary (e.g. 2 large \cite{NEEDED}[146] or 36 small parts \cite{NEEDED}[1191]).
+
+Similarly to whole face registration, a technique used frequently for parts registration is AAM—the parts are typically localised as fixed-size patches around detected landmarks. Optionally, faces may be warped onto a reference frontal face model through non-rigid registration before patches are cropped (e.g. \cite{NEEDED}\cmt{[1099]}, \cite{NEEDED}\cmt{[1191]}).
+
+Alternatively, techniques that perform part detection to localise each patch individually can also be used \cite{NEEDED}\cmt{[1182]}.
+
+\subsection{Points Registration}
+[add citaitons]
+
+Points registration is needed for shape representations, for which registration involves the localization of fiducial points. Similarly to whole and parts registration, AAM is used widely for points registration. Alternative facial feature detectors are also used \cite{NEEDED}\cmt{[1152]}, \cite{NEEDED}\cmt{[1162]}. 
+
+As localization accuracy is important for shape representations, it is desirable to validate the feature detectors across facial expression variations \cite{NEEDED}\cmt{[1152]}, \cite{NEEDED}\cmt{[1162]}.
+
+Points in a sequence can also be registered by localising points using a point detector on the first frame and then tracking them. Valstar and Pantic \cite{NEEDED}\cmt{[1154]} use a Gabor-based point localiser \cite{NEEDED}\cmt{[1162]} and track the points using particle filter \cite{NEEDED}\cmt{[1107]}.
+
+\section{Affect Recognition}
+
+\gblindtext{2}
+
+\subsection{Motion Magnification}
+
+One technique that could be relatively useful when capturing and rapidly processing datasets is the use of Eulerian Video Magnification. While the human vision is both spatially and chromatically sensitive, it is less sensitive to low aptitude motion, and thus we have a difficult time seeing subtle movements \cite{zarezadeh2016micro}. This low processing method, introduced by researchers at MIT, can be effectively used to exaggerate motion in video in order to make manual identification of micro-expressions in the original source video more obvious and easier to spot, especially to the untrained observer \cite{chavali2014micro}.
+
+The ability to observe small details, while a challenge to the naked eye, is also difficult in terms of video processing \cite{NEEDED}. Eulerian Video Magnification has been determined to allow an increase in detection of micro-expressions by exaggerating spacial-temporal data to allow features to be more discernible to human observers \cite{le2016eulerian}. Work has been done which leverages motion magnified video in order to improve feature extraction \cite{chavali2014micro}, which used a Voila-Jones algorithm for face recognition \cite{viola2001rapid} \cite{viola2004robust}, and Histogram of Oriented Gradients (HOG) \cite{dalal2005histograms} for feature extraction \cite{chavali2014micro}.
+
+There are two aspects of Eulerian Video Magnification, one of which has promising demonstrable use once applied to the input during feature extraction. Because micro-expressions often result in very small and quick changes to facial affects, using this method to increase feature extraction rates has proven effective \cite{chavali2014micro}.
+
+\subsubsection*{Color Magnification}
+
+While not explicitly related to facial affects in the conventional sense, color magnification allows for derived data such as a pulse to be extracted from video data \cite{wu2012eulerian}, which can then be used to support conclusions drawn from processing of conventional facial effects. For example, if pulse is found to increase, that could imply increased stress levels, which could be compared to facial affects to improve insight on subject responses.  
+
+\subsection{Temporal Interpolation}
+
+\gblindtext{2}
+
+\subsection{Feature Extraction}
+
+Feature extraction is a method of holistically extracting specific parts of the face for later processing \cite{sariyanidi2015automatic}. While there are methods that are derived from training data, these methods are slower and not ideal for real-time processing. The most popular alternative is the discrete cosine transformation (DCT) \cite{sariyanidi2015automatic}. PCA is the most common adaptive transformation method and has proven to be efficient \cite{calder2001principal}, however it does require controlled conditions in the source video \cite{sariyanidi2015automatic}. However, it is used in many systems \cite{nicolle2012robust}.
+
+There are two primary methods for extracting facial features from source video: geometric feature-based and appearance-based \cite{polikovsky2009facial}. 
+
+Geometric feature-based methods rely on predictable shapes and locations of various aspects of the face such as eyes, nose, and mouth \cite{polikovsky2009facial}. One method, such as the Active Appearance Model (AAM) makes extensive use of a dataset and manually tagged points of the face \cite{polikovsky2009facial} \cite{lucey2007investigating}. Another method exploits specific facial feature points such as the corners of the mouth and edges of the eyebrows by use of a particle filter \cite{polikovsky2009facial} \cite{pantic2005detecting}. This method has been shown to have good results when applied to general facial affects \cite{polikovsky2009facial}, however without preprocessing or filtering, it is inadequate for use with subtle facial affects such as micro-expressions \cite{polikovsky2009facial}.
+
+In appearance-based feature extraction, an image filter like Gabor wavelets has been used with good results \cite{polikovsky2009facial} \cite{bartlett2006automatic}, but when applied to  feature extraction, requires frame by frame analysis without inter-frame correlation and a large number of datasets for filter training \cite{polikovsky2009facial}.
+
+\subsubsection{Local Binary Patterns}
+[add citations]
+
+Local Binary Pattern (LBP) is a robust method for dealing with both gradual and sudden changes in illumination. In one of it's most basic forms, it can be described as a 3x3 pixel image that compares color intensity levels between the center pixel and the 8 outside pixels. The comparisons are then encoded in an 8-bit vector for a total of 256 different patterns, which can be used to determine edges for feature extraction. 
+
+LBP feature vector has several advantages, being that it is computationally quick and can be easily processed by a support vector machine or similar classification algorithm used in video processing. It is also quite tolerant to changes in light intensities, since any increase or decrease in illumination is usually beyond the locally calculated scope of each LBP region being processed individually.
+
+For simplicity, we will use a 9 byte LBP vector as an example. Given the pixels in any given grey-scale image, a LBP vector derived through comparison of a center pixel with the eight surrounding pixels
+
+\begin{displaymath}
+LBP_{P,R}=\sum_{p=0}^{P-1}(g_p-g_c)2^p,s(x)=\Big\{_{0, \quad x<0}^{1, \quad x\geq0}\Big.
+\end{displaymath}
+
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{LBPexample}
+\caption{8-byte gray-scale LBP vector surrounding center pixel where $P\{0-8\}$ is the local values surrounding the center pixel $PC$, and $P\{0,1,2,7\}$ are values higher than or equal to $PC$ and $P\{3,4,5,6\}$ are values lower than $PC$.}
+\label{fig_sim}
+\end{figure}
+
+
+
+where $g_c$ is the middle pixel, $g_p$ is the value of the surrounding pixels, $P$ is $9$ or the total number of pixels involved in the calculation, and $R$ is $1$ or the total radius of the pixles to be part of the calculated region. Let's suppose that the coordinate of the first calculated value of $g_p$ is $(0,0)$, then the coordinates of all $g_p$ pixels would be $(R\cos(2\pi p/P),Rsin(2\pi p/P))$. If the image size is $I*J$ where $I=3$ and $J=3$, we can build a historgram that is representative of the pixels in our example, so that
+
+\begin{align*}
+H(k)=\sum_{i=1}^I\sum{j=1}^Jf(LBP_{P,R}(i,j),k),k\in[0,K], \\
+f(x,y)=\Big\{_{0,\quad otherwise}^{1,\quad x=y}\Big.
+\end{align*}
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{LBPexample2}
+\caption{8-bit LBP transitional vector surrounding center pixel $PC$. $1$ is placed for values higher than or equal to $PC$ and $0$ is placed for values lower than $PC$.}
+\label{fig_sim}
+\end{figure}
+
+so that $K$ is the last value in the vector, and $U$ is total number of transitional bitwise changes in the vector
+
+\begin{align*}
+U(LBP_{P,R})=|s(g_{P-1}-g_c)-s(g_0-g_c)| \\
++\sum_{p=1}^{P-1}|s(g_p-g_c)-s(g_{p-1}-g_c)|.
+\end{align*}
+
+There may be limited transitions in the binary vector where $U$ is an arbitrary small value. But in general, if mapping is needed to achieve further manipulations, such as a rotation invariant, so that
+
+\begin{align*}
+LBP_{P,R}^{riu2}=\bigg\{ \stackrel{\sum_{p=0}^{P-1}} {P+1,}\bigg.s(g_p-g_c), \stackrel{U(LBP_{P,R} \leq 2}{otherwise} 
+\end{align*}
+
+whereby mapping from $LBP_{P,R}$ to $LBP_{P_,R}^{riu2}$, where $riu2$ is the rotation invariant pattern with a low arbitrary value of $U$. Then mapping between the pixel value vector and the bitwise value vector would normally be implemented with a lookup table. \cite{guo2010completed}
+
+\subsubsection{Spatial-Temporal LBP}
+
+When dealing with video, this concept can be expanded to a 3-dimensional array, with each layer representing a 9 pixel component of neighboring video frames, which can be used to determine edges in addition to movement between the three frames. 
+
+Consider a LBP-TOP descriptor, which is a calculation of three local binary pattern codes on three orthogonal planes, such as the XY plane, XT plane, and the YT plane. While a standard XY plane is determined to represent a single image, the XT plane allows for the representation of transitions in horizontal directions, while the YT plane allows for the representation of transitions in vertical directions. Therefore, the XY-LBP calculation represents spatial information, while the XT-LBP and YT-LBP calculations represent spatial temporal information. These three histograms are concatenate as LBP-TOP descriptor. \cite{ma2009event} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[INCOMPLETE EQUATION]
+\[
+H_{i,j}=\sum_{x,y,t}I\{LBP(x,y,t)=i\} \\
+%    I(A)=
+%    \begin{cases}
+%       \frac{1}{0},& \text{A_is_true} \\
+%       0,          & \text{otherwise}
+%    \end{cases}
+\]
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{STLBP}
+\caption{Representation of a Spatial-Temporal Local Binary Pattern.}
+\label{fig_sim}
+\end{figure}
+
+
+\subsubsection{Histograms of Oriented Gradients}
+
+\gblindtext{2}
+
+\subsection{Classification}
+
+\gblindtext{2}
+
+\subsubsection*{SVM}
+
+ While the Gentleboost algorithm can serve as an efficient feature selector \cite{wu2011machine} \cite{torralba2004sharing}, SVM has been shown to demonstrate accuracy when used for facial expression recognition \cite{bartlett2010automated} \cite{wu2011machine}. 
+
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{SVM}
+\caption{Example of SVM classification.}
+\label{fig_sim}
+\end{figure}
+
+\subsubsection*{Linear SVM}
+
+\gblindtext{2}
+
+\subsubsection*{Nonlinear SVM}
+
+\gblindtext{2}
+
+\subsubsection{Boosting}
+
+The concept of boosting a classifier involves the training of weak classifiers until they exceed that of chance, and then training another weak classifier on data that was classified poorly by the first weak classifier. As the algorithm adds weak classifiers, the accuracy is better determinable. Essentially this allows for a collection of weak classifiers to be used to create a strong classifier. \cite{schapire1999improved} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[t]
+
+Given: $(x_1,y_1),...,(x_m,y_m)$; \qquad $x_i \in X,y_i \in \{ -1,+1 \}$
+
+Initalize $D_1(i)=1/m$.
+
+For $t=1,...,T$:
+
+\medskip
+
+\textbullet~Train weak learning using distribution $D_t$.
+
+\textbullet~Get weak hypothesis $h_t:X \rightarrow \mathbb{R}$.
+
+\textbullet~Choose $\alpha_t \in \mathbb{R}$.
+
+\textbullet~Update:
+
+\medskip
+    $D_{t+1}(i)=\frac{D_t(i)exp(-\alpha_ty_ih_t(x_i))}{Z_t}$
+\medskip
+
+where $Z_t$ is a normalization factor (chosen so that $D_{t+1}$ will be a distribution). 
+
+\smallskip
+Output the final hypothesis:
+\medskip
+
+$H(x)=$sign$(\sum\limits_{t=1}^T \alpha_t h_t (x) )$.
+
+  \caption{A generalized version of AdaBoost. \protect\cite{schapire1999improved}}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{AdaBoost}
+
+\gblindtext{2}
+
+\subsubsection*{Gentleboost}
+Gentleboost, while a variant of AdaBoost, which has been used with success for a number of problems \cite{shen2006mutualboost}, Gentleboost is a better choice for objection detection in general \cite{torralba2004sharing}, and has been determined to have favorable performance when applied to facial expressions \cite{whitehill2009toward}. Gentle Adaboost modifies the origional Adaboost method of recalcuating the weights of the data points, and puts less weight on any outlier data points.
+
+\subsection{Deep Learning Methods}
+
+\gblindtext{3}
+
+
+% needed in second column of first page if using \IEEEpubid
+%\IEEEpubidadjcol
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation Results}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command, the
+% \label for the overall figure must come after \caption.
+% \hfil must be used as a separator to get equal spacing.
+% The subfigure.sty package works much the same way, except \subfigure is
+% used instead of \subfloat.
+%
+%\begin{figure*}[!t]
+%\centerline{\subfloat[Case I]\includegraphics[width=2.5in]{subfigcase1}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{subfigcase2}%
+%\label{fig_second_case}}}
+%\caption{Simulation results}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+
+
+% An example of a floating table. Note that, for IEEE style tables, the 
+% \caption command should come BEFORE the table. Table text will default to
+% \footnotesize as IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that IEEE does not put floats in the very first column - or typically
+% anywhere on the first page for that matter. Also, in-text middle ("here")
+% positioning is not used. Most IEEE journals use top floats exclusively.
+% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
+% floats. This can be corrected via the \fnbelowfloat command of the
+% stfloats package.
+
+
+
+\section{Conclusion}
+
+While there is a great deal of research on the individual components required to process facial affects, it is believed there remains need for a central unifying system that is capable of unifying all of the approaches while removing some of the technical obstacles, such as facial movement during registration.
+
+
+
+% if have a single appendix:
+%\appendix[Proof of the Zonklar Equations]
+% or
+%\appendix  % for no appendix heading
+% do not use \section anymore after \appendix, only \section*
+% is possibly needed
+
+% use appendices with more than one appendix
+% then use \section to start each appendix
+% you must declare a \section before using any
+% \subsection or using \label (\appendices by itself
+% starts a section numbered zero.)
+%
+
+
+\appendices
+
+
+\section{NOTES FOR EDITING AND PLACEMENT}
+
+\subsubsection*{Processing Requirements}
+
+Processing of facial expressions, including micro expressions, generally includes three basic steps. First, facial detection. Second, feature extraction. And third, facial expression recognition. \cite{polikovsky2009facial} Preprocessing or filtering techniques may be applied to improve performance and accuracy.
+
+\subsubsection*{Shape Representations}
+
+The most frequently used shape representation is the facial points representation, which describes a face by simply concatenating the x and y coordinates of a number of fiducial points (e.g. 20 \cite{NEEDED}\cmt{[1115]} or 74 points \cite{NEEDED}\cmt{[1085]}).
+
+When the neutral face image is available, it can be used to reduce identity bias \cite{NEEDED}\cmt{[1085]}.
+
+This representation reflects registration errors straightforwardly as it is based on either raw or differential coordinate values. Illumination variations are not an issue since the intensity of the pixels is ignored. However, illumination variations may reduce the registration accuracy of the points. The dimensionality of the representation is relatively low. \cite{NEEDED}\cmt{[1000]}
+
+Facial points are particularly useful when used to complement appearance representations, as done by the winners of AVEC continuous challenge \cite{NEEDED}\cmt{[1099]} and FERA AU challenge \cite{NEEDED}\cmt{[1129]}.
+
+Alternative shape representations are less common. One can use the distances between facial landmarks rather than raw coordinates \cite{NEEDED}\cmt{[1051]}.
+
+Another representation computes descriptors specific to facial components such as distances and angles that describe the opening/closing of the eyes and mouth, and groups of points that describe the state of the cheeks \cite{NEEDED}\cmt{[1144]}.
+
+\subsubsection*{Low-Level Histogram Representations}
+
+Low-level histogram representations first extract local features and encode them in a transformed image, then cluster the local features into uniform regions and finally pool the features of each region with local histograms. The representations are obtained by concatenating all local histograms. 
+
+\subsubsection*{Micro-Expression Recognition Requirements}
+
+A training system for recognizing micro-expressions has long since been established. The Facial Action Coding System (FACS) has been developed by Ekman and his colleagues and has been widely adopted.
+
+\subsubsection*{Additional Preprocessing}
+
+Additional preprocessing may be useful for increasing speed and reliability.
+
+\subsubsection*{Face Alignment}
+
+Errors in detecting could be attributable to all sorts of problems, but preprocssing the face to maintain a uniform alignment to correct small rotation may be usefull \cite{liu2016main}
+
+\subsubsection*{Continuous Modelling}
+
+Another approach, which represents a wider range of emotions, is continuous modelling using affect dimensions. The most established affect dimensions are arousal, valence, power and expectation \cite{NEEDED}\cmt{[1048]}.
+
+\subsubsection*{Class Limiting}
+
+More recently researchers considered nonbasic emotion recognition using a variety of alternatives for modelling non-basic emotions. One approach is to define a limited set of emotion classes (e.g. relief, contempt) \cite{NEEDED}\cmt{[1007]}.
+
+
+%\begin{figure}
+%\centering
+%    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{hapfacs3}
+%    \caption{Screenshot of HapFACS 3.0.}
+%\label{fig:verticalcell}
+%\end{figure}
+
+\begin{figure}[!t]
+\centering
+    \includegraphics[width=2.5in]{hapfacs3}
+\caption{Screenshot of HapFACS 3.0.}
+\label{fig_sim}
+\end{figure}
+
+% use section* for acknowledgement
+\section*{Acknowledgment}
+
+\gblindtext{1}
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+%\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+
+\nocite{
+    wang2014micro,              % 1
+    li2015reading,              % 2
+    zarezadeh2016micro,         % 3
+    ekman1999few,               % 4
+    shreve2013automatic,        % 5
+    chavali2014micro,           % 6
+    yan2014casme,               % 7
+    park2015subtle,             % 8
+    pfister2011recognising,     % 9
+    wu2011machine,              % 10
+    yan2014micro,               % 11
+    liong2014subtle,            % 12
+    le2014spontaneous,          % 13
+    oh2015monogenic,            % 14
+    liu2015main,                % 15
+    huang2015facial,            % 16
+    wang2015micro,              % 17
+    le2016eulerian,             % 18
+    oh2016intrinsic,            % 19
+    jaber2016hybrid,            % 20
+    owayjan2012design,          % 21
+    jeong2016introducing,       % 22
+    jen2016vision,              % 23 
+    chen2015probabilistic,      % 24
+    kao2015gaze,                % 25
+    li2013spontaneous,          % 26
+    sariyanidi2015automatic,    % 27
+    polikovsky2009facial,       % 28
+    sandbach2012static,         % 29
+    thies2016face2face,         % 30
+    cao2015real,                % 31
+    cao20133d,                  % 32
+    shen2006mutualboost,        % 33
+    torralba2004sharing,        % 34
+    whitehill2009toward,        % 35
+    bartlett2010automated,      % 36
+    viola2001rapid,             % 37
+    viola2004robust,            % 38
+    dalal2005histograms,        % 39
+    wu2012eulerian,             % 40
+    lucey2007investigating,     % 41
+    pantic2005detecting,        % 42
+    ekman1979facial,            % 43
+    calder2001principal,        % 44
+    nicolle2012robust,          % 45
+    li2017towards,              % 46
+    tomasi1991detection,        % 47
+    suwajanakorn2014total,      % 48
+    schapire1999improved,       % 49
+    guo2010completed,           % 50
+    miehlke1973surgery,         %%% Added v-- 5/15
+    myers1976comparative,
+    tschiassny1953lx,
+    ekman1984expression,
+    ekman1982felt,
+    pantic2000automatic,
+    liu2016main,
+    matsumoto2011evidence,
+    schmidt2001human,
+    dunbar1998social,
+    littlewort2009automatic,    %%%% Added v-- 2/17
+    ma2009event,
+    cohn2004timing,
+    ekman2002emotional,
+    ambadar2005deciphering,
+    ambady1992thin,
+    ekman2003emotions,
+    gunes2013categorical,
+    banziger2012introducing,
+    gunes2013categorical,
+    jiang2014dynamic,
+    lucey2012painful,
+    liu2011sift,
+    yang2011facial,
+    tong2007facial,
+    zhu2011dynamic,
+    nicolle2012robust,
+    zhang2011facial,
+    valstar2010facial,
+    vukadinovic2005fully,
+    valstar2012fully,
+    patras2004particle,
+    rudovic2012multi,
+    lucey2007investigating,
+    sariyanidi2015automatic,
+    nicolle2012robust,
+    senechal2011facial,
+    huang2010emotion,
+    tian2001recognizing}
+
+
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+\bibliographystyle{unsrt}%Used BibTeX style is unsrt
+\bibliography{survey}
+
+%\end{thebibliography}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{biography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{Mark Havens}
+\ggblindtext{3}
+\end{IEEEbiography}
+
+\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{picture}}]{Ishfaq Ahmad} received the B.Sc. degree
+in electrical engineering from the University of
+Engineering and Technology, Lahore, Pakistan, in
+1985, and the M.S. degree in computer engineering
+and Ph.D. degree in computer science from Syracuse
+University, Syracuse, NY, in 1987 and 1992,
+respectively.
+
+He is currently a Full Professor of Computer Science
+and Engineering in the Department of Computer
+Science and Engineering, University of Texas (UT) at
+Arlington. Prior to joining UT Arlington, he was an
+Associate Professor in the Computer Science Department at Hong Kong University
+of Science and Technology (HKUST). At HKUST, he was also the Director
+of the Multimedia Technology Research Center, an officially recognized
+research center that he conceived and built from scratch. The center was funded
+by various agencies of the Government of the Hong Kong Special Administrative
+Region as well as local and international industries. With more than 40
+personnel including faculty members, postdoctoral fellows, full-time staff, and
+graduate students, the center engaged in numerous R\&D projects with academia
+and industry from Hong Kong, China, and the U.S. The particular areas of focus
+in the center are video (and related audio) compression technologies, video telephone
+and conferencing system. The center has commercialized several of its
+technologies to its industrial partners worldwide. His recent research focus has
+been on developing parallel programming tools, scheduling and mapping algorithms
+for scalable architectures, heterogeneous computing systems, distributed
+multimedia systems, video compression techniques, and web management. His
+research work in these areas is published in over 125 technical papers in refereed
+journals and conferences.
+
+Dr. Ahmad has participated in the organization of several international conferences
+and is an Associate Editor of Cluster Computing, the Journal of Parallel
+and Distributed Computing, IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS
+FOR VIDEO TECHNOLOGY, IEEE Concurrency, and IEEE Distributed Systems
+Online. He received Best Paper Awards at Supercomputing 90 (New York), Supercomputing’91
+(Albuquerque), and the 2001 International Conference on Parallel
+Processing (Spain).
+
+\end{IEEEbiography}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}
+
+
